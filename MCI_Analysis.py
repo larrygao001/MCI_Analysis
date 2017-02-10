@@ -53,8 +53,8 @@ def processData():
         tempX = np.power(accelerationX[i],2)
         tempY = np.power(accelerationY[i],2)
         tempZ = np.power(accelerationZ[i],2)
-        magnitude.append(np.sqrt(tempX + tempY + tempZ))
-    print(magnitude)
+        magnitude.append(np.sqrt((tempX + tempY + tempZ)/3))
+
       
 #find all the activities, including each one's starting and ending time
 def findActivities(): 
@@ -74,14 +74,21 @@ def findActivities():
             
             if startTime!=endTime:
                 activities.append([rawActivities[j-1],startIndex, endIndex, startTime, endTime])
-            count = 0
-         
+            count = 0        
     return activities
+
+#This function take the time strings as input and calculate the time duration in seconds
+def calTime(time1, time2):    
+    #Calculate minutes difference
+    minutes = int(time2.split(":")[1]) - int(time1.split(":")[1])        
+    #Calculate seconds
+    seconds = minutes*60 + int(time2.split(":")[2]) - int(time1.split(":")[2])
+    return seconds
+
 
 #find peak positions for the acceleration in the x, y, and z direction
 #thres (float between 0-1): Normalized threshold.  suggested: around 0.5
 #min_dist (int): Minimum distance between each detected peak. suggested: around 10
-
 def peakPosition(thres, min_dist):
     X = np.array(accelerationX)
     Y = np.array(accelerationY)
@@ -166,18 +173,18 @@ def changeDirection(thres, min_dist):
 
         #The total number of direction changes in all three directions
         countSum = countX+countY+countZ
-        result.append([activities[i][0], countX, countY, countZ, countSum, activities[i][3], activities[i][4]])
+        
+        #Calculate the average number of direction changes within time duration of a specific activity:
+        duration = calTime(time[activities[i][1]], time[activities[i][2]])
+        average = countSum/float(duration)
+        
+        result.append([activities[i][0], countX, countY, countZ, countSum, average, activities[i][3], activities[i][4]])
         
         countX = 0
         countY = 0
         countZ = 0
         countSum = 0
-        
-        #Calculate the average number of direction changes within time duration of a specific activity:
-        
-        
-        
-        
+    
     return result    
 
 #return an array with the number of pauses, and the total duration of all the pauses for each activity
@@ -186,35 +193,49 @@ def pause(mTreshold, tTreshold):
     activities = findActivities()
     
     for i in range(len(activities)):
+        duration = 0
+        duration_average = 0
         pauseCount = 0
         j = activities[i][1]          
         while j < activities[i][2]:
             count = 0
             if magnitude[j] > mTreshold:
                 j+=1
+            t1 = time[j]
             while magnitude[j]< mTreshold and j < activities[i][2]:
                 count+=1
                 j+=1
             if count > tTreshold:
-                pauseCount+=1
-        pauses.append([activities[i][0], pauseCount, activities[i][3], activities[i][4]])    
+                t2 = time[j-1]
+                duration += calTime(t1, t2)
+                pauseCount+=1 
+                duration_average = duration/float(pauseCount)  
+        pauses.append([activities[i][0], pauseCount, duration, duration_average, activities[i][3], activities[i][4]])    
     return pauses
-
 
 def main():
     processData()
-#     showPeaks()
-#     directionChanges = changeDirection(0.2,6)
-    pauses = pause(5, 10)
-#     for i in directionChanges:
-#         print(i)
-    print("...............")
-    for i in pauses:
+    
+    mTreshold = input("Enter a threshold for the pause magnitude(below which will be defined as in a pause phase):\n")
+    tTreshold = input("Enter a threshold for the duration of a pause:(below which will not be counted as a pause):\n")
+    
+    thres = input ("Enter a magnitude threshold (between 0 and 1) for the direction changes:\n")
+    min_dist = input("Enter a time threshold (suggested: around 10):\n")
+    
+    directionChanges = changeDirection(thres, min_dist)
+    pauses = pause(mTreshold,tTreshold)
+    
+    print "\n","direction changes:\n"
+    for i in directionChanges:
         print(i)
-      
-main()
-    
-    
+        
+    print "\n","pauses:\n "
+    for i in pauses:
+        print(i)  
+          
+    showPeaks()
+     
+main()   
 
     
     
