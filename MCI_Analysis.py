@@ -44,6 +44,7 @@ def processData():
     accelerationX = [accelerationX[i] for i in range(start,end+1)]    
     accelerationY = [accelerationY[i] for i in range(start,end+1)] 
     accelerationZ = [accelerationZ[i] for i in range(start,end+1)]
+    
     xAxis = [i for i in range(start, end+1)] 
     time = [time[i] for i in range(start,end+1)] 
     rawActivities = [rawActivities[i] for i in range(start,end+1)]        
@@ -53,6 +54,7 @@ def processData():
         tempY = np.power(accelerationY[i],2)
         tempZ = np.power(accelerationZ[i],2)
         magnitude.append(np.sqrt(tempX + tempY + tempZ))
+    print(magnitude)
       
 #find all the activities, including each one's starting and ending time
 def findActivities(): 
@@ -171,7 +173,6 @@ def changeDirection(thres, min_dist):
         countZ = 0
         countSum = 0
         
-        
         #Calculate the average number of direction changes within time duration of a specific activity:
         
         
@@ -182,27 +183,35 @@ def changeDirection(thres, min_dist):
 #return an array with the number of pauses, and the total duration of all the pauses for each activity
 def pause(mTreshold, tTreshold):
     pauses = []
-    pauseCount = 0
-    for i in range(len(magnitude)-1):
-        count = 0
-#       start = time[i]
-        while magnitude[i]< mTreshold:
-            if magnitude[i+1]< mTreshold:
-#                 end = magnitude[i+1]
+    activities = findActivities()
+    
+    for i in range(len(activities)):
+        pauseCount = 0
+        j = activities[i][1]          
+        while j < activities[i][2]:
+            count = 0
+            if magnitude[j] > mTreshold:
+                j+=1
+            while magnitude[j]< mTreshold and j < activities[i][2]:
                 count+=1
-                if count > tTreshold:
-                    pauseCount+=1
-                    break
-            i = i+1       
+                j+=1
+            if count > tTreshold:
+                pauseCount+=1
+        pauses.append([activities[i][0], pauseCount, activities[i][3], activities[i][4]])    
     return pauses
+
 
 def main():
     processData()
 #     showPeaks()
-    directionChanges = changeDirection(0.2,6)
-    for i in directionChanges:
+#     directionChanges = changeDirection(0.2,6)
+    pauses = pause(5, 10)
+#     for i in directionChanges:
+#         print(i)
+    print("...............")
+    for i in pauses:
         print(i)
-  
+      
 main()
     
     
