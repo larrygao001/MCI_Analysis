@@ -8,13 +8,13 @@ dementia, of which the most common one is Alzheimer’s disease. Current diagnos
 heavily on clinical observations which is usually time-consuming. Effective computer aided MCI
 classification therefore is much desired in facilitate the diagnosis process.
 
-Body motion detection using accelerometers has drawn considerable attention as an alternative
+>Body motion detection using accelerometers has drawn considerable attention as an alternative
 of visual information based movement recognition. With accelerometers, we can collect motion
 data including azimuth, pitch, roll, and acceleration along x, y and z rotation vectors of the
 device. Different patterns of movements yield different results, it’s thus logically possible to
 reversely calculate the corresponding motion based on the given acceleration data.
 
-The most distinguishable features from the clinical
+>The most distinguishable features from the clinical
 observations are pauses and sudden moves. During the laboratory assessments, the patients wear
 a smartwatch that collects acceleration data. We then feed the data into our classification
 algorithms to analyze if there are suspicious movement patterns such as more pauses and
