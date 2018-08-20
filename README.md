@@ -3,7 +3,7 @@ The MCI analysis toolkit contains a python program to process formatted .csv fil
 
 ## Introduction
 
-MCI is an intermediate stage of brain malfunction between normal aging and more serious
+>MCI is an intermediate stage of brain malfunction between normal aging and more serious
 dementia, of which the most common one is Alzheimer’s disease. Current diagnosis relies
 heavily on clinical observations which is usually time-consuming. Effective computer aided MCI
 classification therefore is much desired in facilitate the diagnosis process.
@@ -37,7 +37,7 @@ goal in this study is to find the difference of movement patterns between MCI pa
 normal people, thus providing more clues that leads to successful MCI diagnosis.
 
 ## Data collection and preprocessing
-Studies have shown that the occurrence of MCI is very rare, with a ratio of less than 7.2% per
+>Studies have shown that the occurrence of MCI is very rare, with a ratio of less than 7.2% per
 100 non-demented persons.Understandably MCI patients are very difficult to find, we
 therefore used data collected from participants who imitate MCI patients. Our participants
 constitute 18 young adults for each group: MCI patients and normal people. They imitate MCI
