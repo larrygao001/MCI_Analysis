@@ -36,3 +36,36 @@ patients by entering a mentally equivalent status after purposely getting distra
 All the data are from clinical tests. They are collected using a smartwatch our subjects wear on
 their wrists. The tests are designed specially to test the subjects’ cognitive capabilities. Table 1
 below shows a sample subset of the data:
+![table 1](./data format.png)
+The data are trimmed to remove data segments with missing labels or out of assessment time
+frames. Some subtasks are omitted by our participants during the assessment and data pertaining
+to those tasks were removed for convenient analysis, since we’re only interested in the subtasks
+we can compare across different subjects.
+## Results and Analysis
+1. Number of pauses
+![pause analysis](./pause.png)
+Figure 1. A comparison of number of pauses between distracted adults and undisturbed adults
+with n = 0 and w = 15.
+>The above figure shows the number of pauses comparison after we used refined parameters. The
+number of pauses differs significantly between that of distracted adults and undisturbed adults.
+It’s evidential that pauses are an effective factor to look into in MCI diagnosis. Also, subtasks
+that show a sharp comparison between number of pauses from distracted adults and those from
+undisturbed people, such as “scoop and spread butter”, can be used as “marker” subtasks to
+facilitate lab assessment.
+2.Number of direction changes
+>Although the results from distracted adults and undisturbed adults is not in as sharp comparison
+with each other as in the case of number of pauses, we can still see that for most of the subtasks,
+there are more direction changes from distracted adults. Subtasks such as “scoop and spread
+jelly”, and “scoop sugar into mug” are also good indicator to be chosen to facilitate laboratory
+assessment of MCI.
+![direction changes](./direction-changes.png)
+Figure 2 A comparison of number of direction changes in different subtasks between distracted
+adults and undisturbed adults with min_dist = 10.5 and thres = 0.5.
+## Conclusion
+>In this research, we have investigated using acceleration data analysis to recognize motions. The
+results illustrate that certain subtasks are indicative of MCI mental issues. This can be helpful for
+initial scan of the clinical MCI assessment, since doctors can have the options of looking at a few
+subtasks first, instead of having to go through subtask detail. The approach of using number of
+pauses and direction changes is successful in roughly classing MCI prone people from healthy
+adults. If more data is collected in the future, the problem can be further analyzed with machine
+learning algorithm to provide further insights into facilitating laborious clinical MCI assessment
