@@ -28,16 +28,13 @@ As an initial exploration, our goal in this study is to find the difference of m
 normal people, thus providing more clues that leads to successful MCI diagnosis.
 
 ## Data collection and preprocessing
->Studies have shown that the occurrence of MCI is very rare, with a ratio of less than 7.2% per
-100 non-demented persons.Understandably MCI patients are very difficult to find, we
-therefore used data collected from participants who imitate MCI patients. Our participants
-constitute 18 young adults for each group: MCI patients and normal people. They imitate MCI
-patients by entering a mentally equivalent status after purposely getting distracted.[8]
-All the data are from clinical tests. They are collected using a smartwatch our subjects wear on
+>All the data are from clinical tests. They are collected using a smartwatch our subjects wear on
 their wrists. The tests are designed specially to test the subjects’ cognitive capabilities. Table 1
 below shows a sample subset of the data:
-![table 1](./data format.png)
-The data are trimmed to remove data segments with missing labels or out of assessment time
+![Data format](./data-format.png)
+Table 1 Acceleration data sample of an adult subject preparing a lunch
+
+>The data are trimmed to remove data segments with missing labels or out of assessment time
 frames. Some subtasks are omitted by our participants during the assessment and data pertaining
 to those tasks were removed for convenient analysis, since we’re only interested in the subtasks
 we can compare across different subjects.
